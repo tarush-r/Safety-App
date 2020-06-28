@@ -99,6 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   SizedBox(height: 40),
 
+
+
+
+//Text Field
+
                   Container(
                     margin: EdgeInsets.all(5),
                       padding: EdgeInsets.only(left: 20),
@@ -157,6 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 20,
                   ),
 
+
+//Button
                   InkWell(
                     onTap: () {
                       codeSent
@@ -222,3 +229,8 @@ class _MyHomePageState extends State<MyHomePage> {
         codeAutoRetrievalTimeout: autoTimeout);
   }
 }
+
+
+
+
+
