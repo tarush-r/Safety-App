@@ -54,7 +54,7 @@ class _ContactListState extends State<ContactList> {
       child: DataTable(
         columns: [
           DataColumn(
-            label: Text("Phone Numbers", style:TextStyle(color:Colors.white, fontSize:30)),
+            label: Text("Phone Numbers", style:TextStyle(color:Colors.white, fontSize:24)),
           ),
           DataColumn(
             label: Text(""),
