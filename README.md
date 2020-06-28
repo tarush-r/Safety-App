@@ -1,3 +1,5 @@
 # safety_app
 
-<img src="assets/Screenshots/login.png" width="30%" height="30%">   <img src="ScreenShots/Login.png" width="30%" height="30%">   <img src="ScreenShots/Register.png" width="30%" height="30%">   <img src="ScreenShots/GroupList.png" width="30%" height="30%">   <img src="ScreenShots/Drawer.png" width="30%" height="30%">   <img src="ScreenShots/CreateGroup.png" width="30%" height="30%">   <img src="ScreenShots/JoinGroup.png" width="30%" height="30%">   <img src="ScreenShots/GroupDetails.png" width="30%" height="30%">   <img src="ScreenShots/AddTransaction.png" width="30%" height="30%">   
+
+<img src="assets/Screenshots/finalgif.gif" width="30%" height="30%">
+<img src="assets/Screenshots/login.png" width="30%" height="30%">   <img src="assets/Screenshots/otp.png" width="30%" height="30%">   <img src="assets/Screenshots/mainpage.png" width="30%" height="30%">   <img src="assets/Screenshots/contacts.png" width="30%" height="30%">   <img src="assets/Screenshots/message.jpeg" width="30%" height="30%">   <img src="assets/Screenshots/mapopened.jpeg" width="30%" height="30%">   <img src="assets/Screenshots/map.jpeg" width="30%" height="30%">   <img src="assets/Screenshots/road.jpeg" width="30%" height="30%">      
