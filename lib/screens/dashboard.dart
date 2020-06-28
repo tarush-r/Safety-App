@@ -18,24 +18,10 @@ class _DashboardPageState extends State<DashboardPage> {
   var dbHelper = Storage();
   List<ContactModel> contacts;
 
-  List<String> recipents = ["+919687474924", "+918460729886"];
-  String message = "Hello";
+
 
   static const platform = const MethodChannel('sendSms');
 
-  Future<Null> sendSms() async {
-    try {
-      final String result = await platform.invokeMethod(
-          'send', <String, dynamic>{
-        "phone": "+918460729886",
-        "msg": "Hello! I'm sent programatically."
-      }); //Replace a 'X' with 10 digit phone number
-      print(result);
-    } on PlatformException catch (e) {
-      print("Problem");
-      print(e.toString());
-    }
-  }
 
   Future<Position> getCurrentLocation() async {
     final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);

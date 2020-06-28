@@ -32,68 +32,180 @@ class _MyHomePageState extends State<MyHomePage> {
   String smsCode;
   String verificationId;
 
-  bool codeSent= false;
+  bool codeSent = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("login"),
-      ),
-      body: Center(
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/back.jpg'),
+                fit: BoxFit.cover)),
         child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Enter Phone No"),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter phone no",
-                ),
-                onChanged: (value) {
-                  this.phoneNo = value;
-                },
+            decoration: BoxDecoration(
+                gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
+              Colors.black.withOpacity(.9),
+              Colors.black.withOpacity(.4)
+            ])),
+            child: Padding(
+              padding: EdgeInsets.all(30),
+              child: ListView(
+                reverse: true,
+
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                //mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  //Container(height: 100,),
+                  Center(
+                      child: Container(
+                    padding: EdgeInsets.all(120),
+                    height: 250,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/logo.png'))),
+                  )),
+                  SizedBox(height: 30),
+                  Text('Your safety, our lookout!',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Register yourself and ensure your safety',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'wherever you go',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  SizedBox(height: 40),
+
+                  Container(
+                    margin: EdgeInsets.all(5),
+                      padding: EdgeInsets.only(left: 20),
+                      child: Center(
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: "Enter phone no",
+                              hintStyle: TextStyle(color: Colors.white)),
+                          onChanged: (value) {
+                            this.phoneNo = value;
+                          },
+                        ),
+                      ),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                        //color:Colors.white
+                      )),
+
+                  codeSent
+                      ? Container(
+                        margin: EdgeInsets.all(5),
+                          padding: EdgeInsets.only(left: 20),
+                          child: Center(
+                            child: TextField(
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  hintText: "OTP",
+                                  hintStyle: TextStyle(color: Colors.white)),
+                              onChanged: (value) {
+                                this.smsCode = value;
+                              },
+                            ),
+                          ),
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(50),
+                            //color:Colors.white
+                          ))
+                      : Container(),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      codeSent
+                          ? AuthService().signInWithOTP(smsCode, verificationId)
+                          : verifyPhone(phoneNo);
+                    },
+                    child: Container(
+                        child: Center(
+                            child: codeSent
+                                ? Text("Login",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ))
+                                : Text("Verify",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ))),
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50),
+                          //color:Colors.white
+                        )),
+                  ),
+
+                  //child: codeSent ? Text("Login") : Text("Verify"),
+                ].reversed.toList(),
               ),
-              codeSent ? TextField(
-                decoration: InputDecoration(
-                  hintText: "otp",
-                ),
-                onChanged: (value) {
-                  this.smsCode = value;
-                },
-              ) : Container(),
-              SizedBox(
-                height: 10,
-              ),
-              RaisedButton(
-                onPressed: () {
-                  codeSent? AuthService().signInWithOTP(smsCode, verificationId) : verifyPhone(phoneNo);
-                },
-                child: codeSent ? Text("Login") : Text("Verify"),
-              ),
-            ],
-          ),
-        ),
+            )),
       ),
     );
   }
 
+//Verification
   Future<void> verifyPhone(phoneNo) async {
-    
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
       AuthService().signIn(authResult);
     };
-    
-    final PhoneVerificationFailed verificationFailed = (AuthException exception) {
+
+    final PhoneVerificationFailed verificationFailed =
+        (AuthException exception) {
       print(exception.message);
-      
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
       this.verificationId = verId;
       setState(() {
-        this.codeSent=true;
+        this.codeSent = true;
       });
     };
 
@@ -101,11 +213,12 @@ class _MyHomePageState extends State<MyHomePage> {
       this.verificationId = verId;
     };
 
-    await FirebaseAuth.instance.verifyPhoneNumber(phoneNumber: phoneNo,
-    timeout: const Duration(seconds: 5), 
-    verificationCompleted: verified, 
-    verificationFailed: verificationFailed, 
-    codeSent: smsSent, 
-    codeAutoRetrievalTimeout: autoTimeout);
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNo,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: verified,
+        verificationFailed: verificationFailed,
+        codeSent: smsSent,
+        codeAutoRetrievalTimeout: autoTimeout);
   }
 }
